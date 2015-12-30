@@ -1,0 +1,52 @@
+package guitar;
+
+import media.StdAudio;
+import media.StdDraw;
+
+public class GuitarHeroLite {
+    public static void main(String[] args) {
+    
+
+        // create two guitar strings, for concert A and C
+        double CONCERT_A = 440.0;
+        double CONCERT_B = CONCERT_A * Math.pow(2, 3.0/11); 
+        double CONCERT_C = CONCERT_A * Math.pow(2, 3.0/12.0);  
+        GuitarString stringA = new GuitarString(CONCERT_A);
+        GuitarString stringB = new GuitarString(CONCERT_B);
+        GuitarString stringC = new GuitarString(CONCERT_C);
+        
+        System.out.print(CONCERT_B);
+        System.out.print(CONCERT_C);
+
+        while (true) {
+
+            // check if the user has typed a key; if so, process it   
+            if (StdDraw.hasNextKeyTyped()) {
+                char key = StdDraw.nextKeyTyped();
+                if      (key == 'a') { 
+                	System.out.println("A");
+                	stringA.pluck(); 
+                }
+             //   else if (key == 'b') { 
+             //   	System.out.println("B");
+             //  	stringB.pluck();
+             //   }
+                else if (key == 'c') { 
+                	System.out.println("C");
+                	stringC.pluck(); 
+                	
+            	}
+            }
+
+            // compute the superposition of samples
+            double sample = stringA.sample() + stringC.sample();
+
+            // send the result to the sound card
+            StdAudio.play(sample);
+
+            // advance the simulation of each guitar string by one step   
+            stringA.tic();
+            stringC.tic();
+        }
+     }
+}

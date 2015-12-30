@@ -1,0 +1,7 @@
+package cs2113.zombies.city;
+
+public class Actor {
+	
+	//consolidate initalize and update methods then extend zombie and human
+
+}
